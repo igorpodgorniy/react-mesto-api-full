@@ -1,0 +1,13 @@
+.sign__field {
+  position: relative;
+  display: block;
+  margin-top: 35px;
+}
+
+.sign__field:first-of-type {
+  margin-top: 50px;
+}
+
+.sign__field:last-of-type {
+  margin-bottom: 216px;
+}
