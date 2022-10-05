@@ -106,8 +106,6 @@ const login = (req, res, next) => {
       res.cookie('token', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: 'LaX',
-        domain: 'http://localhost:3000',
       });
       res.send({ message: 'Авторизация прошла успешно' });
     })
