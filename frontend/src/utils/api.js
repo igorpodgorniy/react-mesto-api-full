@@ -1,15 +1,15 @@
-import { TOKEN } from "./utils";
-
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._credentials = credentials;
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
+      credentials: this._credentials,
     })
     .then(this._checkResponse);
   }
@@ -17,7 +17,8 @@ class Api {
   getCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'GET',
-      headers: this._headers
+      headers: this._headers,
+      credentials: this._credentials,
     })
     .then(this._checkResponse);
   }
@@ -26,7 +27,8 @@ class Api {
    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify(newData)
+      credentials: this._credentials,
+      body: JSON.stringify(newData),
     })
     .then(this._checkResponse);
   }
@@ -35,7 +37,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify(newCard)
+      credentials: this._credentials,
+      body: JSON.stringify(newCard),
     })
     .then(this._checkResponse);
   }
@@ -43,7 +46,8 @@ class Api {
   deleteCard(idCard) {
     return fetch(`${this._baseUrl}/cards/${idCard}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this._headers,
+      credentials: this._credentials,
     })
     .then(this._checkResponse);
   }
@@ -52,7 +56,8 @@ class Api {
     const method = isLike ? 'PUT' : 'DELETE';
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: method,
-      headers: this._headers
+      headers: this._headers,
+      credentials: this._credentials,
     })
     .then(this._checkResponse);
   }
@@ -61,7 +66,8 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({ avatar: avatarLink })
+      credentials: this._credentials,
+      body: JSON.stringify({ avatar: avatarLink }),
     })
       .then(this._checkResponse);
   }
@@ -75,11 +81,11 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
+  baseUrl: 'https://api.mesto.prakticum.nomoredomains.icu',
   headers: {
-    authorization: TOKEN,
     'Content-Type': 'application/json'
-  }
+  },
+  credentials: 'include',
 });
 
 export default api;

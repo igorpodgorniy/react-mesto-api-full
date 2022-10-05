@@ -57,9 +57,7 @@ function App() {
   }, [loggedIn]);
 
   function tokenCheck() {
-    if (localStorage.getItem('token')){
-      const token = localStorage.getItem('token');
-      auth.getContent(token)
+    auth.getContent()
         .then((res) => {
           if (res) {
             handleLogin();
@@ -70,7 +68,6 @@ function App() {
         .catch(err => {
           console.log(err);
         });
-    }
   }
 
   function signOut(){
@@ -187,18 +184,15 @@ function App() {
 
   function handleLoginSubmit(email, password) {
     auth.authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          setEmailUser(email);
-          setTextSuccess('Вы успешно вошли!');
-          setRequestDone(true);
-          setTimeout(() => {
-            localStorage.setItem('token', data.token);
-            handleLogin();
-            closeAllPopups();
-            history.push('/');
-          }, 1000);
-        }
+      .then(() => {
+        setEmailUser(email);
+        setTextSuccess('Вы успешно вошли!');
+        setRequestDone(true);
+        setTimeout(() => {
+          handleLogin();
+          closeAllPopups();
+          history.push('/');
+        }, 1000);
       })
       .catch((err) => {
         setRequestDone(false);
