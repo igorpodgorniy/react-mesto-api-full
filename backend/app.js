@@ -10,7 +10,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const allowedCors = [
   'https://mesto.prakticum.nomoredomains.icu',
   'http://mesto.prakticum.nomoredomains.icu',
-  'localhost:3000',
+  'http://localhost:3000',
 ];
 
 const { PORT = 3000 } = process.env;
