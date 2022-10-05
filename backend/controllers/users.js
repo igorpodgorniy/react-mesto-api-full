@@ -107,6 +107,7 @@ const login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: 'LaX',
+        withCredentials: true,
       });
       res.send({ message: 'Авторизация прошла успешно' });
     })
