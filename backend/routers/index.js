@@ -10,6 +10,12 @@ const {
   createUser,
 } = require('../controllers/users');
 
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 router.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -28,6 +34,10 @@ router.post('/signup', celebrate({
 
 router.use('/users', auth, routerUsers);
 router.use('/cards', auth, routerCards);
+
+router.get('/signout', (req, res) => {
+  res.clearCookie('token').send({ message: 'Выход' });
+});
 
 router.use(auth, (req, res, next) => {
   next(new NotFoundError('Такой страницы не существует'));
