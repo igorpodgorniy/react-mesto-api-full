@@ -42,37 +42,36 @@ function App() {
   const [removalСard, setRemovalCard] = React.useState({});
 
   React.useEffect(() => {
-    tokenCheck();
-  }, []);
+    if (loggedIn) {
+      history.push('./');
+    }
+  }, [loggedIn, history]);
 
   React.useEffect(() => {
-    Promise.all([api.getCards(), api.getUserInfo()])
-    .then(([cardList, userInfo]) => {
-      setCards(cardList);
-      setCurrentUser(userInfo);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    if (loggedIn) {
+      Promise.all([api.getCards(), api.getUserInfo()])
+      .then(([cardList, userInfo]) => {
+        setCards(cardList);
+        setCurrentUser(userInfo);
+        handleLogin();
+        setEmailUser(userInfo.email);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
   }, [loggedIn]);
 
-  function tokenCheck() {
-    auth.getContent()
-        .then((res) => {
-          if (res) {
-            handleLogin();
-            setEmailUser(res.data.email);
-            history.push('/');
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-  }
-
   function signOut(){
-    localStorage.removeItem('token');
-    setLoggedIn(false);
+    auth.logout()
+      .then(() => {
+        setLoggedIn(false);
+        setEmailUser('');
+        history.push('./sign-in');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   function handleEditAvatarClick() {
@@ -191,7 +190,7 @@ function App() {
         setTimeout(() => {
           handleLogin();
           closeAllPopups();
-          history.push('/');
+          history.push('./');
         }, 1000);
       })
       .catch((err) => {
@@ -211,7 +210,7 @@ function App() {
           setRequestDone(true);
           setTimeout(() => {
             setRequestDonePopupOpen(false);
-            history.push('/sign-in');
+            history.push('./sign-in');
           }, 1000);
         }
       })

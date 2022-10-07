@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
@@ -13,7 +14,7 @@ const allowedCors = [
   'http://localhost:3000',
 ];
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3005 } = process.env;
 
 const app = express();
 

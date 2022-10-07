@@ -1,3 +1,5 @@
+const { BASE_URl, REACT_ENV } = process.env;
+
 class Api {
   constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
@@ -81,7 +83,9 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.mesto.prakticum.nomoredomains.icu',
+  baseUrl: REACT_ENV === 'prodaction'
+    ? BASE_URl
+    :'http://localhost:3005',
   headers: {
     'Content-Type': 'application/json'
   },

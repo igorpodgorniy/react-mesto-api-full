@@ -17,16 +17,20 @@ const cardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true,
+    autopopulate: true,
   },
   likes: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'user',
     default: [],
+    autopopulate: true,
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+cardSchema.plugin(require('mongoose-autopopulate'));
 
 module.exports = mongoose.model('card', cardSchema);
