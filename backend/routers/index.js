@@ -31,15 +31,16 @@ router.post('/signup', celebrate({
     password: Joi.string().required(),
   }),
 }), createUser);
-
-router.use('/users', auth, routerUsers);
-router.use('/cards', auth, routerCards);
-
 router.get('/signout', (req, res) => {
   res.clearCookie('token').send({ message: 'Выход' });
 });
 
-router.use(auth, (req, res, next) => {
+router.use(auth);
+
+router.use('/users', routerUsers);
+router.use('/cards', routerCards);
+
+router.use((req, res, next) => {
   next(new NotFoundError('Такой страницы не существует'));
 });
 

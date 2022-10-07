@@ -42,13 +42,15 @@ function App() {
   const [removalСard, setRemovalCard] = React.useState({});
 
   React.useEffect(() => {
-    if (loggedIn) {
+    if (tokenCheck()) {
       history.push('./');
+    } else {
+      signOut();
     }
-  }, [loggedIn, history]);
+  }, []);
 
   React.useEffect(() => {
-    if (loggedIn) {
+    if (tokenCheck()) {
       Promise.all([api.getCards(), api.getUserInfo()])
       .then(([cardList, userInfo]) => {
         setCards(cardList);
@@ -57,16 +59,27 @@ function App() {
         setEmailUser(userInfo.email);
       })
       .catch(err => {
+        localStorage.removeItem('isLogin');
         console.log(err);
       });
     }
   }, [loggedIn]);
 
-  function signOut(){
+  function tokenCheck() {
+    let isLogin = false;
+    if (localStorage.getItem('isLogin')) {
+      isLogin = localStorage.getItem('isLogin');
+      setLoggedIn(true);
+    }
+    return isLogin;
+  }
+
+  function signOut() {
     auth.logout()
       .then(() => {
         setLoggedIn(false);
         setEmailUser('');
+        localStorage.removeItem('isLogin');
         history.push('./sign-in');
       })
       .catch(err => {
@@ -188,6 +201,7 @@ function App() {
         setTextSuccess('Вы успешно вошли!');
         setRequestDone(true);
         setTimeout(() => {
+          localStorage.setItem('isLogin', true);
           handleLogin();
           closeAllPopups();
           history.push('./');
