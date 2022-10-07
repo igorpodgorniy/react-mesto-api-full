@@ -1,5 +1,4 @@
 const { REACT_APP_URL, NODE_ENV } = process.env;
-console.log(process.env);
 class Api {
   constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
