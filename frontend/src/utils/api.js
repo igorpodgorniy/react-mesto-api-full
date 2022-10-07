@@ -1,4 +1,5 @@
-const { REACT_APP_URL, REACT_APP_NODE_ENV } = process.env;
+const { REACT_APP_URL, NODE_ENV } = process.env;
+console.log(process.env);
 class Api {
   constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
@@ -82,7 +83,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: REACT_APP_NODE_ENV === 'production'
+  baseUrl: NODE_ENV === 'production'
     ? REACT_APP_URL
     :'http://localhost:3005',
   headers: {
