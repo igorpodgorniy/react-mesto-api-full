@@ -1,5 +1,4 @@
 const { URL, REACT_ENV } = process.env;
-
 class Api {
   constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
