@@ -1,5 +1,5 @@
 const { BASE_URl, REACT_ENV } = process.env;
-export const BASE_URL = REACT_ENV === 'prodaction'
+export const BASE_URL = REACT_ENV === 'production'
   ? BASE_URl
   :'http://localhost:3005';
 
