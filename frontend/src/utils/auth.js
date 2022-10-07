@@ -1,6 +1,6 @@
-const { BASE_URl, REACT_ENV } = process.env;
+const { URL, REACT_ENV } = process.env;
 export const BASE_URL = REACT_ENV === 'production'
-  ? BASE_URl
+  ? URL
   :'http://localhost:3005';
 
 export const register = (email, password) => {

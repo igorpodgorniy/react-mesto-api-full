@@ -1,4 +1,4 @@
-const { BASE_URl, REACT_ENV } = process.env;
+const { BASE_URL, REACT_ENV } = process.env;
 
 class Api {
   constructor({ baseUrl, headers, credentials }) {
@@ -83,8 +83,8 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: REACT_ENV === 'prodaction'
-    ? BASE_URl
+  baseUrl: REACT_ENV === 'production'
+    ? BASE_URL
     :'http://localhost:3005',
   headers: {
     'Content-Type': 'application/json'
