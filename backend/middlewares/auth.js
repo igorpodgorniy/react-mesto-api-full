@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'prodaction'
+    payload = jwt.verify(token, NODE_ENV === 'production'
       ? JWT_SECRET
       : 'some-dev-secret-key');
   } catch (err) {
