@@ -5,8 +5,6 @@ const UnauthorizedError = require('../errors/unauthorized-error');
 const auth = (req, res, next) => {
   const { token } = req.cookies;
   const { NODE_ENV, JWT_SECRET } = process.env;
-  console.log(NODE_ENV, JWT_SECRET);
-  console.log(NODE_ENV === 'production' ? JWT_SECRET : 'some-dev-secret-key');
   let payload;
 
   try {

@@ -96,8 +96,6 @@ const updateAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
   const { NODE_ENV, JWT_SECRET } = process.env;
-  console.log(NODE_ENV, JWT_SECRET);
-  console.log(NODE_ENV === 'production' ? JWT_SECRET : 'some-dev-secret-key');
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
